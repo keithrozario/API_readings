@@ -7,6 +7,6 @@ There are two webscrapers in the this repository.
 
 Both scrapers require a database to operate, and currently require a MYSQL DB, but you can easily change this in the db_operations.py script if you wish.
 
-If you're not a techie, the data is capture in a colon,':' delimited file in the ReadingsByRegion(SG&MY) file. 
+If you're not a techie, the data is capture in a colon,':' delimited file in the /data/ReadingsByRegion(SG&MY) file. 
 
-The full SQL database dump is in the APIScans.zip file.
+The full SQL database dump is in the /data/APIScans.zip file.
