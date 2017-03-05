@@ -1,12 +1,15 @@
-import urllib2
-from urllib2 import urlopen, URLError
-from urllib2 import HTTPError
-from HTMLParser import HTMLParser
+from urllib.error import URLError
+from urllib.request import urlopen
+from urllib.error import HTTPError
+from html.parser import HTMLParser
+import urllib
 
 
 class MLStripper(HTMLParser):
     def __init__(self):
         self.reset()
+        self.strict = False
+        self.convert_charrefs= True
         self.fed = []
     def handle_data(self, d):
         self.fed.append(d)
@@ -29,20 +32,37 @@ def strip_html(html):
 
 def get_html(url,current_url_date):    
 
+    if int(current_url_date[8:10])>9: #double digits
+        current_url_being_day = current_url_date[8:10]
+    else:
+        current_url_being_day = current_url_date[9:10]
+
+    if int(current_url_date[5:7])>9: #double digits
+        current_url_being_month = current_url_date[5:7]
+    else:
+        current_url_being_month = current_url_date[6:7]
+
+    current_url_year = current_url_date[0:4]
+
+
+    current_url_being_read = url + "year/" + current_url_year + "/month/" + current_url_being_month  + "/day/" + current_url_being_day
     
-    current_url_being_read = url + "year/" + str(current_url_date.year) + "/month/" + str(current_url_date.month) + "/day/" + str(current_url_date.day)
-    print '@@@@@' + str(current_url_date) + '@@@@@'
-    print current_url_being_read
+    print ('@@@@@' + str(current_url_date) + '@@@@@')
+    print (current_url_being_read)
+
+
+
+    user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
+    test_headers = {'User-Agent': user_agent}
+
+    req = urllib.request.Request(current_url_being_read, data=None, headers=test_headers)
 
     #attempt to open the webpage of the current URL
     try:
-        webpage_html = urllib2.urlopen(current_url_being_read, timeout=30)
-    except URLError, e:
-        print 'We failed to reach a server.'
-        print 'Reason: ', e.reason
-        return None
-    except :
-        print 'Unknown Error Occured'
+        webpage_html = urlopen(req)
+    except urllib.error.HTTPError as e:
+        print(e.code)
+        print(e.read())
         return None
 
     return webpage_html
