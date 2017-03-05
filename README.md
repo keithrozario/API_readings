@@ -1,12 +1,8 @@
 # API_readings
 Web Scraper for Malaysian API and Singapore PSI readings
 
-There are two webscrapers in the this repository.
-1. One scrapes data from the Malaysia DOE website, for Malaysia's API readings.(http://apims.doe.gov.my/v2/)
-2. One scrapes data from the Singapore National Environment Agencry website for PSI readings on the island. (http://www.haze.gov.sg/haze-updates/historical-psi-readings)
+Unfortunately, Malaysia no longer works. So we only have Singapore data from Oct-2015 onwards. Don't look at me--the DOE has removed all historical data from their site.
 
-Both scrapers require a database to operate, and currently require a MYSQL DB, but you can easily change this in the db_operations.py script if you wish.
+All data stored in the nice db file under the /data folder of the repo.
 
-If you're not a techie, the data is capture in a colon,':' delimited file in the /data/ReadingsByRegion(SG&MY) file. 
-
-The full SQL database dump is in the /data/APIScans.zip file.
+The latest version no longer requires MYSQL, it'll now work with SQLite, a much smaller and fit-for-purpose DB.
